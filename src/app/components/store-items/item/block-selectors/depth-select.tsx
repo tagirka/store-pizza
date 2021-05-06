@@ -1,16 +1,16 @@
-import React from "react"
+import React, { FC } from "react"
 import { DepthType, DepthViewType, PizzaType } from "../../../../types"
 import { useSelector } from "react-redux"
 import { itemSelectors } from "../../../../bus/item/selectors"
 import { ActiveItemType } from "../../../../hooks/useSetActiveItem"
 
-interface Props {
+type PropsType = {
   itemStore: PizzaType
   active: ActiveItemType
   setActive: (id: ActiveItemType) => void
 }
 
-const DepthSelect = ({ itemStore, active, setActive }: Props) => {
+const DepthSelect: FC<PropsType> = ({ itemStore, active, setActive }) => {
   const { depth } = active
   const { availableDepths } = itemStore
   const depths = useSelector(itemSelectors.depthsSelect) as DepthType[]

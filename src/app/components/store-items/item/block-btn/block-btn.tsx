@@ -1,16 +1,16 @@
-import React from "react"
+import React, { FC } from "react";
 import { ActiveItemType } from "../../../../hooks/useSetActiveItem"
 import { cartActions } from "../../../../bus/cart/actions"
 import { PizzaType } from "../../../../types"
 import { useDispatch } from "react-redux"
 
-interface Props {
+type PropsType  = {
   itemStore: PizzaType
   active: ActiveItemType
   setActive: (id: ActiveItemType) => void
 }
 
-const BlockBtn = ({ itemStore, active, setActive }: Props) => {
+const BlockBtn: FC<PropsType> = ({ itemStore, active, setActive }) => {
   const dispatch = useDispatch()
   const { depth, size, count } = active
   const { id, cost } = itemStore

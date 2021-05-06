@@ -1,16 +1,16 @@
-import React from "react"
+import React, { FC } from "react"
 import { PizzaType, SizeType, SizeViewType } from "../../../../types"
 import { useSelector } from "react-redux"
 import { itemSelectors } from "../../../../bus/item/selectors"
 import { ActiveItemType } from "../../../../hooks/useSetActiveItem"
 
-interface Props {
+type PropsType = {
   itemStore: PizzaType
   active: ActiveItemType
   setActive: (id: ActiveItemType) => void
 }
 
-const SizeSelect = ({ itemStore, active, setActive }: Props) => {
+const SizeSelect: FC<PropsType> = ({ itemStore, active, setActive }) => {
   const { size } = active
   const { availableSizes } = itemStore
   const sizesStore = useSelector(itemSelectors.sizesSelect)
