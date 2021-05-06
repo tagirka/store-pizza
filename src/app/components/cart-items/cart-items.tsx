@@ -1,11 +1,12 @@
 import React, { FC } from "react"
 import CartItem from "./cart-item/cart-item"
-import { useSelector } from "react-redux"
+
 import { cartSelectors } from "../../bus/cart/saga/selectors"
 import { CartItemType } from "../../types"
+import { useGetCartItems } from "../../hooks/useGetCartItems"
 
 const CartItems: FC = () => {
-  const cartItems: CartItemType[] = useSelector(cartSelectors.items)
+  const [cartItems] = useGetCartItems(cartSelectors.items)
 
   return (
     <div className="content__items">

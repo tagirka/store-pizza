@@ -1,4 +1,4 @@
-import React from "react"
+import React, { FC } from "react";
 import { CartItemType } from "../../../types"
 import CartItemRender from "./cart-item-render"
 import { useDispatch, useSelector } from "react-redux"
@@ -6,11 +6,11 @@ import { itemSelectors } from "../../../bus/item/selectors"
 import { CartActionType } from "../../../bus/cart/types"
 import { cartActions } from "../../../bus/cart/actions"
 
-interface Props {
+type PropsType = {
   item: CartItemType
 }
 
-const CartItem = ({ item }: Props) => {
+const CartItem: FC<PropsType> = ({ item }) => {
   const dispatch = useDispatch()
   const { count, totalCost, idItem, idCart } = item
 

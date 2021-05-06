@@ -1,9 +1,16 @@
 import React, { FC } from "react"
 import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 import { cartActions } from "../../bus/cart/actions"
 
 const CartTop: FC = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  const clearCart = (): any => {
+    dispatch(cartActions.clear())
+    history.push("/")
+  }
 
   return (
     <div className="cart__top">
@@ -39,10 +46,7 @@ const CartTop: FC = () => {
         </svg>
         Корзина
       </h2>
-      <div
-        className="cart__clear"
-        onClick={() => dispatch(cartActions.clear())}
-      >
+      <div className="cart__clear" onClick={() => clearCart()}>
         <svg
           width="20"
           height="20"

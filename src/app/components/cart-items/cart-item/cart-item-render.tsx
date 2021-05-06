@@ -1,7 +1,7 @@
-import React from "react"
+import React, { FC } from "react";
 import { CartActionType } from "../../../bus/cart/types"
 
-interface Props {
+type PropsType = {
   title: string
   image: string
   depth: string
@@ -11,7 +11,7 @@ interface Props {
   handleOnClick: (action: CartActionType) => void
 }
 
-const CartItemRender = ({
+const CartItemRender: FC<PropsType> = ({
   title,
   image,
   depth,
@@ -19,7 +19,7 @@ const CartItemRender = ({
   cost,
   count,
   handleOnClick,
-}: Props) => {
+}) => {
   return (
     <div className="cart__item">
       <div className="cart__item-img">

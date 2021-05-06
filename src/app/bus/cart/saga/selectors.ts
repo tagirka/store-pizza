@@ -1,6 +1,8 @@
 import { StateType } from "../../../init/rootReducer"
 import { CartItemType } from "../../../types"
 
+export type CartSelectorsType = typeof cartSelectors.items
+
 export const cartSelectors = {
   items: (state: StateType) => state.cart.items,
 

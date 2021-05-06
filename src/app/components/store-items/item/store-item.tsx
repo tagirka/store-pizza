@@ -23,7 +23,7 @@ const StoreItem: FC<PropsType> = ({ viewId }) => {
     viewId,
     itemSelectors.pizzaByIdSelect
   )
-  const { availableSizes, availableDepths, id } = itemStore
+  const { availableSizes, availableDepths, id, image, title } = itemStore
 
   const [countInCart] = useCountItemCart(id)
 
@@ -37,12 +37,8 @@ const StoreItem: FC<PropsType> = ({ viewId }) => {
 
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src={itemStore.image}
-        alt={itemStore.title}
-      />
-      <h4 className="pizza-block__title">{itemStore.title}</h4>
+      <img className="pizza-block__image" src={image} alt={title} />
+      <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <DepthSelect
           itemStore={itemStore}
