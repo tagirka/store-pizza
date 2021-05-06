@@ -1,8 +1,8 @@
-import React from "react"
+import React, { FC } from "react"
 import { useDispatch } from "react-redux"
 import { cartActions } from "../../bus/cart/actions"
 
-const CartTop = () => {
+const CartTop: FC = () => {
   const dispatch = useDispatch()
 
   return (

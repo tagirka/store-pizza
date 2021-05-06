@@ -1,19 +1,41 @@
 import React from "react"
+import { ActiveItemType } from "../../../../hooks/useSetActiveItem"
+import { cartActions } from "../../../../bus/cart/actions"
+import { PizzaType } from "../../../../types"
+import { useDispatch } from "react-redux"
 
 interface Props {
-  handleBth: () => void
-  cost: number
-  count: number
+  itemStore: PizzaType
+  active: ActiveItemType
+  setActive: (id: ActiveItemType) => void
 }
 
-const BlockBtn = ({ handleBth, cost, count }: Props) => {
+const BlockBtn = ({ itemStore, active, setActive }: Props) => {
+  const dispatch = useDispatch()
+  const { depth, size, count } = active
+  const { id, cost } = itemStore
+
+  const idCart = `${id}-${depth}-${size}`
+
+  const handleBtn = () => {
+    setActive({ ...active, count: ++active.count })
+
+    const itemCart = {
+      idCart,
+      idItem: id,
+      cost,
+      depth,
+      size,
+      count: 1,
+    }
+
+    dispatch(cartActions.add(itemCart))
+  }
+
   return (
     <div className="pizza-block__bottom">
       <div className="pizza-block__price">от {cost} ₽</div>
-      <div
-        className="button button--outline button--add"
-        onClick={() => handleBth()}
-      >
+      <div className="button button--outline button--add" onClick={handleBtn}>
         <svg
           width="12"
           height="12"

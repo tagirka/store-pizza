@@ -1,4 +1,4 @@
-import { put } from "redux-saga/effects"
+import { put, apply } from "redux-saga/effects"
 
 import { api } from "../../../../api/api"
 import { ItemAction } from "../../actions"
@@ -6,7 +6,7 @@ import { ItemAction } from "../../actions"
 export function* itemFetch() {
   try {
     yield put(ItemAction.isLoaded(false))
-    const response: any[] = yield api.fetchData()
+    const response: any[] = yield apply(api, api.fetchData, [])
 
     const statusOK = response.filter((res) => res.status === 200).length
 
@@ -22,5 +22,6 @@ export function* itemFetch() {
     put(ItemAction.isError(true))
     throw new Error("fetch error")
   } finally {
+    // stop fetch
   }
 }

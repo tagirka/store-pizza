@@ -31,7 +31,7 @@ export interface SizeViewType extends SizeType {
 
 export interface CartItemType {
   idCart: string
-  idItem: number | null
+  idItem: number
   cost: number
   depth: number | null
   size: number | null

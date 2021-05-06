@@ -6,5 +6,7 @@ export const cartSelectors = {
 
   itemCart: (id: string) => (state: StateType) =>
     state.cart.items.find((c: CartItemType) => c.idCart === id),
+  itemByIdCart: (id: number) => (state: StateType) =>
+    state.cart.items.filter((c: CartItemType) => c.idItem === id),
   total: (state: StateType) => state.cart.total,
 }

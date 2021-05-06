@@ -1,9 +1,9 @@
-import React from "react"
+import React, { FC } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { cartSelectors } from "../../bus/cart/saga/selectors"
 
-const Header = () => {
+const Header: FC = () => {
   const { totalSum, totalCount } = useSelector(cartSelectors.total)
 
   return (

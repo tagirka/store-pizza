@@ -1,22 +1,18 @@
-import React, { useState } from "react"
+import React from "react"
 
-import { viewSelectors } from "../../bus/view/saga/selectors"
-
-import { useDispatch, useSelector } from "react-redux"
 import CategoryListRender from "./category-list-render"
-import { ViewAction } from "../../bus/view/actions"
+
+import { useGetView } from "../../hooks/useGetView"
+import { viewSelectors } from "../../bus/view/saga/selectors"
+import { useSetActiveCategory } from "../../hooks/useSetActiveCategory"
 
 const CategoryList = () => {
-  const dispatch = useDispatch()
-  const categoriesView: number[] = useSelector(
-    viewSelectors.categoriesViewSelect
-  )
+  const [categoriesView] = useGetView(viewSelectors.categoriesViewSelect)
 
-  const [activeItem, setActiveItem] = useState(0)
+  const [activeItem, setActiveItem] = useSetActiveCategory(0)
 
   const handleSelectedCategory = (id = 0) => {
     setActiveItem(id)
-    dispatch(ViewAction.filter(id))
   }
 
   return (

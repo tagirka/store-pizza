@@ -1,11 +1,11 @@
 import { all, call, takeEvery } from "redux-saga/effects"
-import { ItemActionType } from "../types"
+import { ItemActionEnum } from "../types"
 import { itemFetch } from "./workers/item-fetch"
 
-function* watchItemFetch() {
-  yield takeEvery(ItemActionType.fetch, itemFetch)
+function* watchItemFetch(): Generator {
+  yield takeEvery(ItemActionEnum.fetch, itemFetch)
 }
 
-export function* watchItem() {
+export function* watchItem(): Generator {
   yield all([call(watchItemFetch)])
 }

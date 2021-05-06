@@ -1,5 +1,20 @@
 import { StateType } from "../../init/rootReducer"
+
 import { CategoryType, DepthType, PizzaType, SizeType } from "../../types"
+
+export type ItemByIdSelectorsType =
+  | typeof itemSelectors.pizzaByIdSelect
+  | typeof itemSelectors.categoryByIdSelect
+  | typeof itemSelectors.depthByIdSelect
+  | typeof itemSelectors.sizeByIdSelect
+
+export type ItemAllSelectorsType =
+  | typeof itemSelectors.pizzasSelect
+  | typeof itemSelectors.categoriesSelect
+  | typeof itemSelectors.depthsSelect
+  | typeof itemSelectors.sizesSelect
+  | typeof itemSelectors.isLoadedSelect
+  | typeof itemSelectors.isErrorSelect
 
 export const itemSelectors = {
   pizzasSelect: (state: StateType) => state.item.pizzas,

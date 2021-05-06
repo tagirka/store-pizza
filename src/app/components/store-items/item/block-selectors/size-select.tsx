@@ -2,14 +2,16 @@ import React from "react"
 import { PizzaType, SizeType, SizeViewType } from "../../../../types"
 import { useSelector } from "react-redux"
 import { itemSelectors } from "../../../../bus/item/selectors"
+import { ActiveItemType } from "../../../../hooks/useSetActiveItem"
 
 interface Props {
   itemStore: PizzaType
-  active: number | null
-  setActive: (id: number | null) => void
+  active: ActiveItemType
+  setActive: (id: ActiveItemType) => void
 }
 
 const SizeSelect = ({ itemStore, active, setActive }: Props) => {
+  const { size } = active
   const { availableSizes } = itemStore
   const sizesStore = useSelector(itemSelectors.sizesSelect)
   const sizesView: SizeViewType[] = sizesStore.reduce(
@@ -21,17 +23,17 @@ const SizeSelect = ({ itemStore, active, setActive }: Props) => {
 
   return (
     <ul>
-      {sizesView.map((size) => {
-        const { id, title, visible } = size
+      {sizesView.map((s) => {
+        const { id, title, visible } = s
 
         return (
           <li
             key={title}
             className={`
             ${!visible ? "disableItem disableItem--gray" : ""} 
-            ${active === id && visible ? "active" : ""}
+            ${size === id && visible ? "active" : ""}
             `}
-            onClick={() => setActive(id)}
+            onClick={() => setActive({ ...active, size: id })}
           >
             {title}
           </li>

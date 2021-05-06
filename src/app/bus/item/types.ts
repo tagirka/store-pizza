@@ -1,4 +1,4 @@
-export enum ItemActionType {
+export enum ItemActionEnum {
   fill = "ITEM.FILL",
   fetch = "ITEM.FETCH",
   loaded = "ITEM.LOADED",

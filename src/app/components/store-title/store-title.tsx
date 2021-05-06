@@ -1,6 +1,6 @@
-import React from "react"
+import React, { FC } from "react"
 
-const StoreTitle = () => {
+const StoreTitle: FC = () => {
   return <h2 className="content__title">Все пиццы</h2>
 }
 

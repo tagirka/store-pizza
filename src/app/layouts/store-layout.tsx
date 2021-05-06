@@ -1,7 +1,11 @@
-import React from "react"
+import React, { FC, ReactNode } from "react"
 import Header from "../components/header/header"
 
-const StoreLayout = ({ children }: any) => {
+type PropsType = {
+  children: ReactNode
+}
+
+const StoreLayout: FC<PropsType> = ({ children }) => {
   return (
     <>
       <Header />

@@ -1,21 +1,15 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import React, { FC } from "react"
 
-import { ItemAction } from "../bus/item/actions"
 import StoreLayout from "../layouts/store-layout"
 import StoreTop from "../components/store-top/store-top"
 import StoreTitle from "../components/store-title/store-title"
 import StoreItems from "../components/store-items/store-items"
-import { itemSelectors } from "../bus/item/selectors"
+
 import Loading from "../ui/loading/loading"
+import { useFetchAllData } from "../hooks/useFetchAllData"
 
-const StorePage = () => {
-  const dispatch = useDispatch()
-  const isLoading = useSelector(itemSelectors.isLoadedSelect)
-
-  useEffect(() => {
-    dispatch(ItemAction.fetch())
-  }, [dispatch])
+const StorePage: FC = () => {
+  const [isLoading] = useFetchAllData()
 
   return (
     <StoreLayout>

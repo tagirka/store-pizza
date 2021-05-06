@@ -1,10 +1,11 @@
-import React from "react"
+import React, { FC } from "react"
 import StoreItem from "./item/store-item"
-import { useSelector } from "react-redux"
+
+import { useGetView } from "../../hooks/useGetView"
 import { viewSelectors } from "../../bus/view/saga/selectors"
 
-const StoreItems = () => {
-  const pizzasView = useSelector(viewSelectors.pizzasViewSelect)
+const StoreItems: FC = () => {
+  const [pizzasView] = useGetView(viewSelectors.pizzasViewSelect)
 
   return (
     <div className="content__items">

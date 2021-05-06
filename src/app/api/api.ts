@@ -1,5 +1,7 @@
-import axios from "axios"
+import axios, { AxiosPromise, AxiosResponse } from "axios"
 import { BASE_URL } from "../config/config"
+
+import { PizzaType } from "../types"
 
 const urlsTable = {
   pizzas: "pizzas",
@@ -10,20 +12,35 @@ const urlsTable = {
 
 export const urls = Object.values(urlsTable)
 
-export const api = {
-  fetch: (url: string, option = {}) => {
+type FetchDataType<T> = () => Promise<T>
+
+type ResponseType = {
+  url: string
+  status: number
+  data: any
+}
+
+export type ApiType = {
+  fetch: (url: string, option: {}) => AxiosPromise
+  fetchData: FetchDataType<ResponseType[]>
+}
+
+export const api: ApiType = {
+  fetch: async (url: string, option = {}) => {
     const requestOptions = {
       ...option,
       headers: {
         Authorization: "token",
       },
     }
-    return axios(`${BASE_URL}${url}`, requestOptions)
+    const response = await axios(`${BASE_URL}${url}`, requestOptions)
+    return response
   },
 
-  fetchData: () => {
-    const response = urls.map((url) => api.fetch(url))
-    return Promise.all(response).then((res) =>
+  fetchData: async () => {
+    const option = {}
+    const response = urls.map((url) => api.fetch(url, option))
+    return await Promise.all(response).then((res) =>
       res.map((r, i) => ({
         url: urls[i],
         status: r.status,

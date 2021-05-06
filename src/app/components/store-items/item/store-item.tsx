@@ -1,69 +1,39 @@
-import React, { useEffect, useState } from "react"
+import React, { FC } from "react"
 import DepthSelect from "./block-selectors/depth-select"
 import SizeSelect from "./block-selectors/size-select"
 import BlockBtn from "./block-btn/block-btn"
-import { useDispatch, useSelector } from "react-redux"
+
+import { useGetItemById } from "../../../hooks/useGetItemById"
 import { itemSelectors } from "../../../bus/item/selectors"
 import { PizzaType } from "../../../types"
+import {
+  ActiveItemType,
+  useSetActiveItem,
+} from "../../../hooks/useSetActiveItem"
 
-import { cartActions } from "../../../bus/cart/actions"
+import { useCountItemCart } from "../../../hooks/useCountItemCart"
 
-interface Props {
+type PropsType = {
   viewId: number
+  children?: never
 }
 
-const StoreItem = ({ viewId }: Props) => {
-  const dispatch = useDispatch()
-  const itemStore = useSelector(
-    itemSelectors.pizzaByIdSelect(viewId)
-  ) as PizzaType
-
-  const { availableSizes, availableDepths, cost } = itemStore
-
-  const [activeDepth, setActiveDepth] = useState(
-    availableDepths.length !== 0 ? availableDepths[0] : null
+const StoreItem: FC<PropsType> = ({ viewId }) => {
+  const [itemStore] = useGetItemById<PizzaType>(
+    viewId,
+    itemSelectors.pizzaByIdSelect
   )
+  const { availableSizes, availableDepths, id } = itemStore
 
-  const [activeSize, setActiveSize] = useState(
-    availableSizes.length !== 0 ? availableSizes[0] : null
-  )
+  const [countInCart] = useCountItemCart(id)
 
-  const [activeCount, setActiveCount] = useState(0)
-
-  const getIdCart = ({ viewId, activeDepth, activeSize }: any) => {
-    return `${viewId}-${activeDepth}-${activeSize}`
+  const initialActiveItemState: ActiveItemType = {
+    depth: availableDepths.length !== 0 ? availableDepths[0] : null,
+    size: availableSizes.length !== 0 ? availableSizes[0] : null,
+    count: countInCart,
   }
 
-  const [idCart, setIdCart] = useState(() =>
-    getIdCart({ viewId, activeDepth, activeSize })
-  )
-
-  const [activePizza, setActivePizza] = useState({
-    idItem: viewId,
-    cost,
-    size: activeSize,
-    depth: activeDepth,
-    count: null as null | number,
-  })
-
-  const handleBtn = () => {
-    setActiveCount((prev) => ++prev)
-
-    setActivePizza({
-      idItem: viewId,
-      cost,
-      size: activeSize,
-      depth: activeDepth,
-      count: 1,
-    })
-
-    setIdCart(() => getIdCart({ viewId, activeDepth, activeSize }))
-  }
-
-  useEffect(() => {
-    if (!Boolean(activePizza.count)) return
-    dispatch(cartActions.add({ idCart, ...activePizza }))
-  }, [activePizza, idCart, dispatch])
+  const [activeItem, setActiveItem] = useSetActiveItem(initialActiveItemState)
 
   return (
     <div className="pizza-block">
@@ -76,22 +46,24 @@ const StoreItem = ({ viewId }: Props) => {
       <div className="pizza-block__selector">
         <DepthSelect
           itemStore={itemStore}
-          active={activeDepth}
-          setActive={setActiveDepth}
+          active={activeItem}
+          setActive={setActiveItem}
         />
         <SizeSelect
           itemStore={itemStore}
-          active={activeSize}
-          setActive={setActiveSize}
+          active={activeItem}
+          setActive={setActiveItem}
         />
       </div>
       <BlockBtn
-        handleBth={handleBtn}
-        cost={+cost.toFixed(2)}
-        count={activeCount}
+        itemStore={itemStore}
+        active={activeItem}
+        setActive={setActiveItem}
       />
     </div>
   )
 }
+
+StoreItem.defaultProps = { viewId: 0 }
 
 export default StoreItem

@@ -1,12 +1,12 @@
 import { all, call, takeEvery } from "redux-saga/effects"
 
 import { fillView } from "./workers/fill-view"
-import { ItemActionType } from "../../item/types"
+import { ItemActionEnum } from "../../item/types"
 import { ViewActionType } from "../types"
 import { filterItems } from "./workers/filter-items"
 
 function* watchFillView() {
-  yield takeEvery(ItemActionType.fill, fillView)
+  yield takeEvery(ItemActionEnum.fill, fillView)
 }
 
 function* watchFilterItemCategory() {

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { FC } from "react"
 import StoreLayout from "../layouts/store-layout"
 import CartTop from "../components/cart-top/cart-top"
 import CartItems from "../components/cart-items/cart-items"
@@ -8,7 +8,7 @@ import { itemSelectors } from "../bus/item/selectors"
 
 import { Redirect } from "react-router-dom"
 
-const CartPage = () => {
+const CartPage: FC = () => {
   const isLoaded = useSelector(itemSelectors.isLoadedSelect)
   if (!isLoaded) return <Redirect to="/" />
 

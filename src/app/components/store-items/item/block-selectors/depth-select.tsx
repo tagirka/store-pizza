@@ -2,14 +2,16 @@ import React from "react"
 import { DepthType, DepthViewType, PizzaType } from "../../../../types"
 import { useSelector } from "react-redux"
 import { itemSelectors } from "../../../../bus/item/selectors"
+import { ActiveItemType } from "../../../../hooks/useSetActiveItem"
 
 interface Props {
   itemStore: PizzaType
-  active: number | null
-  setActive: (id: number | null) => void
+  active: ActiveItemType
+  setActive: (id: ActiveItemType) => void
 }
 
 const DepthSelect = ({ itemStore, active, setActive }: Props) => {
+  const { depth } = active
   const { availableDepths } = itemStore
   const depths = useSelector(itemSelectors.depthsSelect) as DepthType[]
   const depthsView: DepthViewType[] = depths.reduce((acc: any, cur) => {
@@ -22,11 +24,11 @@ const DepthSelect = ({ itemStore, active, setActive }: Props) => {
         const { title, id, visible } = d
         return (
           <li
-            onClick={() => setActive(id)}
+            onClick={() => setActive({ ...active, depth: id })}
             key={title}
             className={`
           ${!visible ? "disableItem disableItem--gray" : ""} 
-          ${active === id && visible ? "active" : ""}`}
+          ${depth === id && visible ? "active" : ""}`}
           >
             {title}
           </li>

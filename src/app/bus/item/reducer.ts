@@ -1,8 +1,8 @@
 import { CategoryType, DepthType, PizzaType, SizeType } from "../../types"
 
-import { ItemActionType } from "./types"
+import { ItemActionEnum } from "./types"
 
-export interface ItemStateType {
+export type ItemStateType = {
   pizzas: PizzaType[]
   categories: CategoryType[]
   depths: DepthType[]
@@ -20,16 +20,23 @@ const initialState: ItemStateType = {
   isLoaded: false,
 }
 
-export const itemReducer = (state = initialState, { type, payload }: any) => {
+export const itemReducer: (
+  state: ItemStateType,
+  { type, payload, error }: any
+) => any = (state = initialState, { type, payload, error }: any) => {
   switch (type) {
-    case ItemActionType.fill: {
+    case ItemActionEnum.fill: {
       return { ...state, ...payload }
     }
-    case ItemActionType.loaded: {
+    case ItemActionEnum.loaded: {
       return { ...state, isLoaded: payload as boolean }
     }
-    case ItemActionType.error: {
+    case ItemActionEnum.error: {
       return { ...state, isError: payload as boolean }
+    }
+
+    case ItemActionEnum.fetch: {
+      return state
     }
 
     default: {
