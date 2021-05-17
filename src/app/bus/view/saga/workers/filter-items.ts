@@ -1,15 +1,20 @@
 import { PizzaType } from "../../../../types"
-import { put, select } from "redux-saga/effects"
+import { call, put, select } from "redux-saga/effects"
 import { itemSelectors } from "../../../item/selectors"
 import { getPizzasView } from "./fill-view"
 import { ViewAction } from "../../actions"
+import { ActionDataType } from "../../../../init/rootReducer"
+import { SagaIterator } from "redux-saga"
+import { viewSelectors } from "../selectors"
 
-export function* filterItems({ payload }: any) {
+export function* filterItems({ payload }: ActionDataType): SagaIterator {
   const pizzas: PizzaType[] = yield select(
-    itemSelectors.pizzaByCategorySelect(payload)
+    itemSelectors.pizzaByCategorySelect(payload as number)
   )
 
-  const pizzasView = getPizzasView(pizzas)
+  const categoriesView = yield select(viewSelectors.categoriesViewSelect)
 
-  yield put(ViewAction.fill({ pizzasView }))
+  const pizzasView = yield call(getPizzasView, pizzas)
+
+  yield put(ViewAction.fill({ pizzasView, categoriesView }))
 }

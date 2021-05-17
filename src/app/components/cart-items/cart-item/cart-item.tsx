@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { CartItemType } from "../../../types"
+import React, { FC } from "react"
+import { CartItemType, DepthType, PizzaType, SizeType } from "../../../types"
 import CartItemRender from "./cart-item-render"
 import { useDispatch, useSelector } from "react-redux"
 import { itemSelectors } from "../../../bus/item/selectors"
@@ -12,18 +12,21 @@ type PropsType = {
 
 const CartItem: FC<PropsType> = ({ item }) => {
   const dispatch = useDispatch()
-  const { count, totalCost, idItem, idCart } = item
+  const { count, totalCost, idItem, idCart, depth } = item
 
-  const { title, image } = useSelector(
-    itemSelectors.pizzaByIdSelect(idItem as number)
-  )
+  const pizza = useSelector(itemSelectors.pizzaByIdSelect(idItem as number))
 
-  const { title: depth } = useSelector(
-    itemSelectors.depthByIdSelect(item.depth as number)
-  )
-  const { title: size } = useSelector(
+  const { title, image } = pizza as PizzaType
+
+  const pizzaDepth = useSelector(itemSelectors.depthByIdSelect(depth))
+
+  const { title: titleDepth } = pizzaDepth as DepthType
+
+  const pizzaSize = useSelector(
     itemSelectors.sizeByIdSelect(item.size as number)
   )
+
+  const { title: titleSize } = pizzaSize as SizeType
 
   const handleOnClick = (action: CartActionType) => {
     switch (action) {
@@ -50,8 +53,8 @@ const CartItem: FC<PropsType> = ({ item }) => {
       title={title}
       image={image}
       cost={totalCost as number}
-      depth={depth}
-      size={size}
+      depth={titleDepth}
+      size={titleSize}
       count={count as number}
       handleOnClick={handleOnClick}
     />

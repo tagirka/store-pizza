@@ -2,7 +2,9 @@ import { useSelector } from "react-redux"
 import { cartSelectors } from "../bus/cart/saga/selectors"
 import { CartItemType } from "../types"
 
-export const useCountItemCart = (id: number) => {
+export type UseCountItemCartType<T> = (id: T) => [T]
+
+export const useCountItemCart: UseCountItemCartType<number> = (id: number) => {
   const countInCart = useSelector(cartSelectors.itemByIdCart(id))
 
   if (countInCart.length === 0) return [0]

@@ -1,6 +1,7 @@
 import { CategoryType, DepthType, PizzaType, SizeType } from "../../types"
 
 import { ItemActionEnum } from "./types"
+import { ActionDataType } from "../../init/rootReducer"
 
 export type ItemStateType = {
   pizzas: PizzaType[]
@@ -20,13 +21,13 @@ const initialState: ItemStateType = {
   isLoaded: false,
 }
 
-export const itemReducer: (
-  state: ItemStateType,
-  { type, payload, error }: any
-) => any = (state = initialState, { type, payload, error }: any) => {
+export const itemReducer = (
+  state = initialState,
+  { type, payload }: ActionDataType
+): ItemStateType => {
   switch (type) {
     case ItemActionEnum.fill: {
-      return { ...state, ...payload }
+      return { ...state, ...(payload as ItemStateType) }
     }
     case ItemActionEnum.loaded: {
       return { ...state, isLoaded: payload as boolean }

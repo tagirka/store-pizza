@@ -3,8 +3,10 @@ import { cartActions } from "../../actions"
 import { CartStateType } from "../../reducer"
 import { CartItemType } from "../../../../types"
 import { round } from "../utils"
+import { ActionDataType } from "../../../../init/rootReducer"
+import { SagaIterator } from "redux-saga"
 
-export function* recalculateCart({ payload }: any) {
+export function* recalculateCart({ payload }: ActionDataType): SagaIterator {
   const { items } = payload as CartStateType
 
   const calcItems = items.reduce(

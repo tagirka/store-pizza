@@ -1,15 +1,18 @@
-import React from "react"
+import React, { FC } from "react"
 import { useSelector } from "react-redux"
 import { itemSelectors } from "../../bus/item/selectors"
+import { CategoryType } from "../../types"
 
-interface Props {
+interface PropsType {
   id: number
   active: number
   handleSelected: (id: number) => void
 }
 
-const CategoryListRender = ({ id, active, handleSelected }: Props) => {
-  const { title } = useSelector(itemSelectors.categoryByIdSelect(id))
+const CategoryListRender: FC<PropsType> = ({ id, active, handleSelected }) => {
+  const category = useSelector(itemSelectors.categoryByIdSelect(id))
+
+  const { title } = category as CategoryType
 
   return (
     <div>

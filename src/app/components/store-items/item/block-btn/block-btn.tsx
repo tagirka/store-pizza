@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, { FC } from "react"
 import { ActiveItemType } from "../../../../hooks/useSetActiveItem"
 import { cartActions } from "../../../../bus/cart/actions"
-import { PizzaType } from "../../../../types"
+import { CartItemType, PizzaType } from "../../../../types"
 import { useDispatch } from "react-redux"
 
-type PropsType  = {
+type PropsType = {
   itemStore: PizzaType
   active: ActiveItemType
   setActive: (id: ActiveItemType) => void
@@ -15,12 +15,12 @@ const BlockBtn: FC<PropsType> = ({ itemStore, active, setActive }) => {
   const { depth, size, count } = active
   const { id, cost } = itemStore
 
-  const idCart = `${id}-${depth}-${size}`
+  const idCart = `${id}-${depth ?? 0}-${size ?? 0}`
 
   const handleBtn = () => {
     setActive({ ...active, count: ++active.count })
 
-    const itemCart = {
+    const itemCart: CartItemType = {
       idCart,
       idItem: id,
       cost,

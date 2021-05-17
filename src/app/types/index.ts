@@ -11,7 +11,7 @@ export interface PizzaType extends DataType {
   availableSizes: number[]
 }
 
-export interface CategoryType extends DataType {}
+export type CategoryType = DataType
 
 export interface DepthType extends DataType {
   ratioCost: number

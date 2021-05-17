@@ -1,8 +1,15 @@
 import { ViewActionType } from "./types"
+import { ViewStateType } from "./reducer"
+import { ActionDataType } from "../../init/rootReducer"
 
-export const ViewAction = {
-  fill: (data: any) => ({ type: ViewActionType.fill, payload: data }),
-  filter: (id: number) => ({
+type ViewActionsType = {
+  fill: (data: ViewStateType) => ActionDataType
+  filter: (id: number) => ActionDataType
+}
+
+export const ViewAction: ViewActionsType = {
+  fill: (data) => ({ type: ViewActionType.fill, payload: data }),
+  filter: (id) => ({
     type: ViewActionType.filterItemByCategory,
     payload: id,
   }),

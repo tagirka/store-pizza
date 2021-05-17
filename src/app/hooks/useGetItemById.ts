@@ -6,6 +6,7 @@ type UseGetItemByIdType = <T>(
   selector: ItemByIdSelectorsType
 ) => [T]
 
+// @ts-ignore
 export const useGetItemById: UseGetItemByIdType = (
   id: number,
   selector: ItemByIdSelectorsType

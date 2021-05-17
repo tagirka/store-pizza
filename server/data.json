@@ -36,7 +36,7 @@
       "category": 1,
       "image": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg",
       "cost": 23,
-      "availableDepths": [],
+      "availableDepths": [1,2],
       "availableSizes": [1, 2]
     },
     {

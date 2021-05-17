@@ -26,7 +26,7 @@ function* watchDelCart() {
   yield takeEvery(CartActionType.del, delCart)
 }
 
-export function* watchCart() {
+export function* watchCart(): Generator {
   yield all([
     call(watchAddCart),
     call(watchRecalculateCart),

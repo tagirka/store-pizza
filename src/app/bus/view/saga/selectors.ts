@@ -8,6 +8,8 @@ export type ViewSelectorType =
 export const pizzasSelector = select((state: StateType) => state.item.pizzas)
 
 export const viewSelectors = {
-  pizzasViewSelect: (state: StateType) => state.view.pizzasView,
-  categoriesViewSelect: (state: StateType) => state.view.categoriesView,
+  pizzasViewSelect: (state: StateType): (number | null)[] =>
+    state.view.pizzasView,
+  categoriesViewSelect: (state: StateType): (number | null)[] =>
+    state.view.categoriesView,
 }
