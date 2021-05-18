@@ -11,9 +11,8 @@ export type ItemByIdSelectorsType =
 export const itemSelectors = {
   pizzasSelect: (state: StateType): PizzaType[] => state.item.pizzas,
   categoriesSelect: (state: StateType): CategoryType[] => state.item.categories,
-  isLoadedSelect: (state: StateType): boolean | undefined =>
-    state.item.isLoaded,
-  isErrorSelect: (state: StateType): boolean | undefined => state.item.isError,
+  isLoadedSelect: (state: StateType): boolean => state.item.isLoaded,
+  isErrorSelect: (state: StateType): boolean => state.item.isError,
   depthsSelect: (state: StateType): DepthType[] => state.item.depths,
   sizesSelect: (state: StateType): SizeType[] => state.item.sizes,
 

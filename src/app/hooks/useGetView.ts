@@ -5,13 +5,13 @@ import { ViewSelectorType } from "../bus/view/saga/selectors"
 
 type UseGetViewType = (selector: ViewSelectorType) => [number[]]
 
-export const useGetView: UseGetViewType = (selector): [number[]] => {
+export const useGetView: UseGetViewType = (selector) => {
   const view: ReturnType<typeof selector> = useSelector(selector)
 
   const [arrayView, setArrayView] = useState([] as number[])
 
   useEffect(() => {
-    setArrayView(view as number[])
+    setArrayView(view)
   }, [view])
 
   return [arrayView]

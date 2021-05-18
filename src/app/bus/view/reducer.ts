@@ -2,8 +2,8 @@ import { ViewActionType } from "./types"
 import { ActionDataType } from "../../init/rootReducer"
 
 export interface ViewStateType {
-  pizzasView: (number | null)[]
-  categoriesView: (number | null)[]
+  pizzasView: number[]
+  categoriesView: number[]
 }
 
 const initialState: ViewStateType = {

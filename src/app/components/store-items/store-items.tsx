@@ -9,11 +9,9 @@ const StoreItems: FC = () => {
 
   return (
     <div className="content__items">
-      {pizzasView
-        .filter((p: number | null) => p !== null)
-        .map((pizzaId: number) => (
-          <StoreItem key={pizzaId} viewId={pizzaId} />
-        ))}
+      {pizzasView.map((pizzaId) => (
+        <StoreItem key={pizzaId} viewId={pizzaId} />
+      ))}
     </div>
   )
 }

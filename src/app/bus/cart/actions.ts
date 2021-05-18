@@ -17,8 +17,8 @@ export const cartActions: CartActionsType = {
   fill: (data) => ({ type: CartActionType.fill, payload: data }),
   add: (data) => ({ type: CartActionType.add, payload: data }),
   inc: (id) => ({ type: CartActionType.inc, payload: id }),
-  dec: (id: string) => ({ type: CartActionType.dec, payload: id }),
-  del: (id: string) => ({ type: CartActionType.del, payload: id }),
+  dec: (id) => ({ type: CartActionType.dec, payload: id }),
+  del: (id) => ({ type: CartActionType.del, payload: id }),
   clear: () => ({ type: CartActionType.clear }),
   recalculate: (data) => ({
     type: CartActionType.recalculate,

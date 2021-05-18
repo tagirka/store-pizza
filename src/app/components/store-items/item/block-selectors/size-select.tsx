@@ -14,7 +14,7 @@ const SizeSelect: FC<PropsType> = ({ itemStore, active, setActive }) => {
   const { size } = active
   const { availableSizes } = itemStore
   const sizesStore = useSelector(itemSelectors.sizesSelect)
-  const sizesView: SizeViewType[] = sizesStore.reduce((acc, cur: SizeType) => {
+  const sizesView = sizesStore.reduce((acc, cur: SizeType) => {
     return [...acc, { ...cur, visible: availableSizes.includes(cur.id) }]
   }, [] as SizeViewType[])
 

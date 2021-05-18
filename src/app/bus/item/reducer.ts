@@ -8,8 +8,8 @@ export type ItemStateType = {
   categories: CategoryType[]
   depths: DepthType[]
   sizes: SizeType[]
-  isLoaded?: boolean
-  isError?: boolean
+  isLoaded: boolean
+  isError: boolean
 }
 
 const initialState: ItemStateType = {

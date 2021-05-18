@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { DepthType, DepthViewType, PizzaType } from "../../../../types"
+import { DepthViewType, PizzaType } from "../../../../types"
 import { useSelector } from "react-redux"
 import { itemSelectors } from "../../../../bus/item/selectors"
 import { ActiveItemType } from "../../../../hooks/useSetActiveItem"
@@ -13,9 +13,9 @@ type PropsType = {
 const DepthSelect: FC<PropsType> = ({ itemStore, active, setActive }) => {
   const { depth } = active
   const { availableDepths } = itemStore
-  const depths = useSelector(itemSelectors.depthsSelect) as DepthType[]
+  const depths = useSelector(itemSelectors.depthsSelect)
 
-  const depthsView: DepthViewType[] = depths.reduce((acc, cur) => {
+  const depthsView = depths.reduce((acc, cur) => {
     return [...acc, { ...cur, visible: availableDepths.includes(cur.id) }]
   }, [] as DepthViewType[])
 

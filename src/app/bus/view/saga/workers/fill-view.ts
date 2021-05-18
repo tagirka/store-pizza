@@ -2,9 +2,9 @@ import { call, put, select } from "redux-saga/effects"
 import { CATEGORIES_ON_VIEW, ITEMS_ON_VIEW } from "../../../../config/config"
 import { CategoryType, PizzaType } from "../../../../types"
 
-import { ViewAction } from "../../actions"
 import { itemSelectors } from "../../../item/selectors"
 import { SagaIterator } from "redux-saga"
+import { ViewAction } from "../../actions"
 
 export function* fillView(): SagaIterator {
   const pizzas: PizzaType[] = yield select(itemSelectors.pizzasSelect)
@@ -12,10 +12,11 @@ export function* fillView(): SagaIterator {
     itemSelectors.categoriesSelect
   )
 
-  const pizzasView: (number | null)[] = yield call(getPizzasView, pizzas)
+  const pizzasView: number[] = yield call(getPizzasView, pizzas)
 
   const catView = pizzasView.reduce((acc, cur) => {
-    const pizza = pizzas.find((p) => p.id === cur)
+    // const pizza = pizzas.find((p) => p.id === cur)
+    const pizza = pizzas[cur]
     const category = pizza ? pizza.category : null
     if (category !== null && !acc.includes(category)) {
       acc.push(category)
@@ -35,11 +36,14 @@ export function* fillView(): SagaIterator {
   yield put(ViewAction.fill({ pizzasView, categoriesView }))
 }
 
-export const getPizzasView = (arr: PizzaType[]): (number | null)[] => {
+export const getPizzasView = (arr: PizzaType[]): number[] => {
   return arr
+    .filter(
+      (p) => p.availableDepths.length !== 0 || p.availableSizes.length !== 0
+    )
     .map((p) => {
-      if (p.availableDepths.length === 0 || p.availableSizes.length === 0)
-        return null
+      // if (p.availableDepths.length === 0 || p.availableSizes.length === 0)
+      //   return null
 
       return p.id
     })
