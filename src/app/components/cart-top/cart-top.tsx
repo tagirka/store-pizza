@@ -7,7 +7,7 @@ const CartTop: FC = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const clearCart = (): any => {
+  const clearCart = (): void => {
     dispatch(cartActions.clear())
     history.push("/")
   }

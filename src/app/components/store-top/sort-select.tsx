@@ -1,6 +1,6 @@
-import React from "react"
+import React, { FC } from "react"
 
-const SortSelect = () => {
+const SortSelect: FC = () => {
   return (
     <div className="sort">
       <div className="sort__label">

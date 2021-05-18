@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { itemSelectors } from "../bus/item/selectors"
 import { ItemAction } from "../bus/item/actions"
 
-export const useFetchAllData = () => {
+export const useFetchAllData: () => (boolean | undefined)[] = () => {
   const dispatch = useDispatch()
 
   const isLoading = useSelector(itemSelectors.isLoadedSelect)

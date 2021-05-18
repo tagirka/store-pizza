@@ -8,19 +8,14 @@ export type ItemByIdSelectorsType =
   | typeof itemSelectors.depthByIdSelect
   | typeof itemSelectors.sizeByIdSelect
 
-export type ItemAllSelectorsType =
-  | typeof itemSelectors.pizzasSelect
-  | typeof itemSelectors.categoriesSelect
-  | typeof itemSelectors.depthsSelect
-  | typeof itemSelectors.sizesSelect
-  | typeof itemSelectors.isLoadedSelect
-  | typeof itemSelectors.isErrorSelect
-
 export const itemSelectors = {
-  pizzasSelect: (state: StateType) => state.item.pizzas,
-  categoriesSelect: (state: StateType) => state.item.categories,
-  isLoadedSelect: (state: StateType) => state.item.isLoaded,
-  isErrorSelect: (state: StateType) => state.item.isError,
+  pizzasSelect: (state: StateType): PizzaType[] => state.item.pizzas,
+  categoriesSelect: (state: StateType): CategoryType[] => state.item.categories,
+  isLoadedSelect: (state: StateType): boolean | undefined =>
+    state.item.isLoaded,
+  isErrorSelect: (state: StateType): boolean | undefined => state.item.isError,
+  depthsSelect: (state: StateType): DepthType[] => state.item.depths,
+  sizesSelect: (state: StateType): SizeType[] => state.item.sizes,
 
   //select by ID
   pizzaByIdSelect: (id: number) => (state: StateType): PizzaType | null => {
@@ -36,6 +31,7 @@ export const itemSelectors = {
       ? state.item.pizzas
       : state.item.pizzas.filter((p: PizzaType) => p.category === id)
   },
+
   categoryByIdSelect: (id = 0) => (
     state: StateType
   ): CategoryType | CategoryType[] | null => {
@@ -48,7 +44,6 @@ export const itemSelectors = {
     return category
   },
 
-  depthsSelect: (state: StateType) => state.item.depths,
   depthByIdSelect: (id: number | null) => (
     state: StateType
   ): DepthType | null => {
@@ -57,8 +52,9 @@ export const itemSelectors = {
     return depth
   },
 
-  sizesSelect: (state: StateType) => state.item.sizes,
-  sizeByIdSelect: (id: number | null) => (state: StateType) => {
+  sizeByIdSelect: (id: number | null) => (
+    state: StateType
+  ): SizeType | null => {
     const size = state.item.sizes.find((s: SizeType) => s.id === id)
 
     if (size === undefined || size === null) return null

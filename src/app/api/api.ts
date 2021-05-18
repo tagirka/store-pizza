@@ -19,7 +19,7 @@ export type ApiResponseType = {
 }
 
 export type ApiType = {
-  fetch: (url: string, option: any) => AxiosPromise
+  fetch: (url: string, option: { [key: string]: string }) => AxiosPromise
   fetchData: FetchDataType<ApiResponseType[]>
 }
 

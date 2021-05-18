@@ -14,7 +14,8 @@ const DepthSelect: FC<PropsType> = ({ itemStore, active, setActive }) => {
   const { depth } = active
   const { availableDepths } = itemStore
   const depths = useSelector(itemSelectors.depthsSelect) as DepthType[]
-  const depthsView: DepthViewType[] = depths.reduce((acc: any, cur) => {
+
+  const depthsView: DepthViewType[] = depths.reduce((acc, cur) => {
     return [...acc, { ...cur, visible: availableDepths.includes(cur.id) }]
   }, [] as DepthViewType[])
 
